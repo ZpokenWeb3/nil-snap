@@ -24,14 +24,15 @@ export const useInvokeSnap = (snapId = defaultSnapOrigin) => {
    * @param params.params - The method params.
    * @returns The Snap response.
    */
-  const invokeSnap = async ({ method, params }: InvokeSnapParams) =>
-    request({
+  const invokeSnap = async ({ method, params }: InvokeSnapParams) => {
+    return await request({
       method: 'wallet_invokeSnap',
       params: {
         snapId,
         request: params ? { method, params } : { method },
       },
     });
+  };
 
   return invokeSnap;
 };

@@ -10,6 +10,15 @@ const config: SnapConfig = {
   polyfills: {
     buffer: true,
   },
+  customizeWebpackConfig: (snapConfig) => {
+    return {
+      ...snapConfig,
+      optimization: {
+        usedExports: false, // Disable tree shaking by not marking used exports
+        providedExports: false, // Disable tree shaking by not marking provided exports
+      },
+    };
+  },
 };
 
 export default config;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { defaultSnapOrigin } from '../config/snap';
-import { type GetSnapsResponse } from '../types/snap';
+import type { GetSnapsResponse } from '../types/snap';
 import { useMetaMaskContext } from './MetamaskContext';
 import { useRequest } from './useRequest';
 
@@ -24,6 +24,8 @@ export const useMetaMask = () => {
     const clientVersion = await request({
       method: 'web3_clientVersion',
     });
+
+    console.log(clientVersion);
 
     const isFlaskDetected = (clientVersion as string[])?.includes('flask');
 

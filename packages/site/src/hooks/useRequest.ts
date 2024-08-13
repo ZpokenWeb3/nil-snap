@@ -30,6 +30,8 @@ export const useRequest = () => {
 
       return data;
     } catch (requestError: any) {
+      console.log(requestError);
+
       setError(requestError);
 
       return null;

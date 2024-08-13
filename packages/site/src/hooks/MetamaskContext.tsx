@@ -2,7 +2,7 @@ import type { MetaMaskInpageProvider } from '@metamask/providers';
 import type { ReactNode } from 'react';
 import { createContext, useContext, useEffect, useState } from 'react';
 
-import { type Snap } from '../types/snap';
+import type { Snap } from '../types/snap';
 import { getSnapsProvider } from '../utils/metamask';
 
 type MetaMaskContextType = {

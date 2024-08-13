@@ -1,42 +1,64 @@
 import type { OnRpcRequestHandler } from '@metamask/snaps-sdk';
-import { Box, Text, Bold } from '@metamask/snaps-sdk/jsx';
 
-/**
- * Handle incoming JSON-RPC requests, sent through `wallet_invokeSnap`.
- *
- * @param args - The request handler args as object.
- * @param args.origin - The origin of the request, e.g., the website that
- * invoked the snap.
- * @param args.request - A validated JSON-RPC request object.
- * @returns The result of `snap_dialog`.
- * @throws If the request method is not valid for this snap.
- */
-export const onRpcRequest: OnRpcRequestHandler = async ({
-  origin,
-  request,
-}) => {
+import type { ApiParams, ApiRequestParams } from './types/snapApi';
+import type { SnapState } from './types/snapState';
+import { createAccount } from './utils/createAccount';
+import { createAndMintCurrency } from './utils/createAndMintCurrency';
+import { deployAccount } from './utils/deployAccount';
+import { faucetToken } from './utils/faucet';
+import { getBalance } from './utils/getBalance';
+import { getCurrencies } from './utils/getCurrencies';
+import { getAddressKeyDeriver } from './utils/keyPair';
+import { mintToAddress } from './utils/mintToAddress';
+
+export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
+  const requestParams = request?.params as ApiRequestParams;
+  let state = (await snap.request({
+    method: 'snap_manageState',
+    params: {
+      operation: 'get',
+    },
+  })) as SnapState;
+
+  if (!state) {
+    state = {
+      accContracts: [],
+    };
+    // initialize state if empty and set default data
+    await snap.request({
+      method: 'snap_manageState',
+      params: {
+        operation: 'update',
+        newState: state,
+      },
+    });
+  }
+
+  const apiParams = {
+    state,
+    requestParams,
+    wallet: snap,
+  } as ApiParams;
+
   switch (request.method) {
-    case 'hello':
-      return snap.request({
-        method: 'snap_dialog',
-        params: {
-          type: 'confirmation',
-          content: (
-            <Box>
-              <Text>
-                Hello, <Bold>{origin}</Bold>!
-              </Text>
-              <Text>
-                This custom confirmation is just for display purposes.
-              </Text>
-              <Text>
-                But you can edit the snap source code to make it do something,
-                if you want to!
-              </Text>
-            </Box>
-          ),
-        },
-      });
+    case 'nill_createAccount':
+      apiParams.keyDeriver = await getAddressKeyDeriver(snap);
+      return await createAccount(apiParams);
+    case 'nill_deployAccount':
+      apiParams.keyDeriver = await getAddressKeyDeriver(snap);
+      return await deployAccount(apiParams);
+    case 'nill_getBalance':
+      return await getBalance(apiParams);
+    case 'nill_faucet':
+      return await faucetToken(apiParams);
+    case 'nill_getCurrencies':
+      return await getCurrencies(apiParams);
+    case 'nill_createAndMint':
+      apiParams.keyDeriver = await getAddressKeyDeriver(snap);
+      return await createAndMintCurrency(apiParams);
+    case 'nill_mintToAddress':
+      apiParams.keyDeriver = await getAddressKeyDeriver(snap);
+      return await mintToAddress(apiParams);
     default:
       throw new Error('Method not found.');
   }
