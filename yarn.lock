@@ -10422,21 +10422,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gatsby-plugin-styled-components@npm:^6.13.1":
-  version: 6.13.1
-  resolution: "gatsby-plugin-styled-components@npm:6.13.1"
-  dependencies:
-    "@babel/runtime": ^7.20.13
-  peerDependencies:
-    babel-plugin-styled-components: ">1.5.0"
-    gatsby: ^5.0.0-next
-    react: ^18.0.0 || ^0.0.0
-    react-dom: ^18.0.0 || ^0.0.0
-    styled-components: ">=2.0.0"
-  checksum: 8b8b595f8122301eb0d526fd6fae10950b5912282b35cb6a52d64bbd7e414af2e9eb35bdca0f781e37a02428f16f95fbcac4d857e2aca9c041286d60fe8a3f32
-  languageName: node
-  linkType: hard
-
 "gatsby-plugin-svgr@npm:^3.0.0-beta.0":
   version: 3.0.0-beta.0
   resolution: "gatsby-plugin-svgr@npm:3.0.0-beta.0"
@@ -16888,7 +16873,6 @@ __metadata:
     eslint-plugin-promise: ^6.1.1
     gatsby: ^5.13.3
     gatsby-plugin-manifest: ^5.13.1
-    gatsby-plugin-styled-components: ^6.13.1
     gatsby-plugin-svgr: ^3.0.0-beta.0
     prettier: ^2.7.1
     prettier-plugin-packagejson: ^2.2.18

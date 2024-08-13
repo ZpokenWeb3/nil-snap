@@ -1,9 +1,13 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./",
-    "resolveJsonModule": true,
-    "jsx": "preserve"
+    "allowJs": true,
+    "declaration": false,
+    "declarationMap": false,
+    "incremental": true,
+    "jsx": "preserve",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "noEmit": true
   },
   "include": ["src", "gatsby-browser.tsx", "gatsby-config.ts", "gatsby-ssr.tsx"]
 }

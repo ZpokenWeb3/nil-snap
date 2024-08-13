@@ -1,5 +1,5 @@
-import { defaultSnapOrigin } from '../config';
-import type { Snap } from '../types';
+import { defaultSnapOrigin } from '../config/snap';
+import type { Snap } from '../types/snap';
 import { useMetaMaskContext } from './MetamaskContext';
 import { useRequest } from './useRequest';
 

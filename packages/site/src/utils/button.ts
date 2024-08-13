@@ -1,4 +1,4 @@
-import type { Snap } from '../types';
+import type { Snap } from '../types/snap';
 import { isLocalSnap } from './snap';
 
 export const shouldDisplayReconnectButton = (installedSnap: Snap | null) =>

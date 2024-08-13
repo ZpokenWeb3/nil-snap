@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { defaultSnapOrigin } from '../config';
-import type { GetSnapsResponse } from '../types';
+import { defaultSnapOrigin } from '../config/snap';
+import { type GetSnapsResponse } from '../types/snap';
 import { useMetaMaskContext } from './MetamaskContext';
 import { useRequest } from './useRequest';
 
