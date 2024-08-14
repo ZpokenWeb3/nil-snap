@@ -1,4 +1,4 @@
-import { useEffect, type FunctionComponent, type ReactNode } from 'react';
+import { type FunctionComponent, type ReactNode, useEffect } from 'react';
 
 import { HeaderButtons } from './components/Buttons';
 import { useMetaMaskContext } from './hooks/MetamaskContext';
