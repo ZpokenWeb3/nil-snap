@@ -8,7 +8,7 @@ import { Button } from './ui/button';
 
 export const Header = () => {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center flex-[0_0_50px]">
       <Link to="/" className="w-[99] h-9">
         <Logo />
       </Link>
