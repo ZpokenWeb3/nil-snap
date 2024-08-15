@@ -4,6 +4,9 @@ module.exports = {
   parserOptions: {
     sourceType: 'module',
   },
+  rules: {
+    'no-void': ['error', { allowAsStatement: true }],
+  },
 
   extends: ['@metamask/eslint-config'],
 
@@ -16,6 +19,9 @@ module.exports = {
     {
       files: ['*.ts', '*.tsx'],
       extends: ['@metamask/eslint-config-typescript'],
+      rules: {
+        '@typescript-eslint/no-explicit-any': 'error',
+      },
     },
 
     {

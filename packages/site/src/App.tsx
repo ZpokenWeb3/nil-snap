@@ -1,3 +1,4 @@
+import type { Account, Currency } from '@zpoken/metamask-nil-types';
 import { type FunctionComponent, type ReactNode, useEffect } from 'react';
 
 import { HeaderButtons } from './components/Buttons';
@@ -5,7 +6,6 @@ import { useMetaMaskContext } from './hooks/MetamaskContext';
 import { useInvokeSnap } from './hooks/useInvokeSnap';
 import { useStore } from './state';
 import { walletSelector } from './state/wallet';
-import type { Account, Currency } from './types/wallet';
 
 export type AppProps = {
   children: ReactNode;
@@ -14,6 +14,7 @@ export type AppProps = {
 export const App: FunctionComponent<AppProps> = ({ children }) => {
   const { provider } = useMetaMaskContext();
   const request = useInvokeSnap();
+
   const { setAccounts, setBalances, setCurrencies } = useStore(walletSelector);
 
   useEffect(() => {
@@ -21,7 +22,6 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
       return;
     }
 
-    // eslint-disable-next-line no-void
     void (async () => {
       try {
         const account = (await request({

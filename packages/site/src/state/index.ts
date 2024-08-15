@@ -1,7 +1,7 @@
-import { create, type StateCreator } from 'zustand';
+import { type StateCreator, create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-import { createWalletSlice, type WalletSlice } from './wallet';
+import { type WalletSlice, createWalletSlice } from './wallet';
 
 export type AllSlices = {
   wallet: WalletSlice;

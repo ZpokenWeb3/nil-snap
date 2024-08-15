@@ -1,5 +1,6 @@
+import type { Account, Address, Currency } from '@zpoken/metamask-nil-types';
+
 import type { AllSlices, SliceCreator } from '.';
-import type { Account, Address, Currency } from '../types/wallet';
 
 export type WalletSlice = {
   accounts: Account[];
