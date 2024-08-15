@@ -58,7 +58,7 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
       <Header />
       <div className="flex h-[calc(100vh-114px)] gap-5">
         <aside className="basis-[266px] bg-red-500">asd</aside>
-        <div className="bg-blue-500 flex-1 overflow-auto">{children}</div>
+        <div className="flex-1 overflow-auto">{children}</div>
       </div>
     </div>
   );
