@@ -1,6 +1,6 @@
 import { useMetaMask } from '../hooks/useMetaMask';
 import { useRequestSnap } from '../hooks/useRequestSnap';
-import { shouldDisplayReconnectButton } from '../utils/button';
+import { shouldDisplayReconnectButton } from '../lib/button';
 
 export const HeaderButtons = () => {
   const requestSnap = useRequestSnap();

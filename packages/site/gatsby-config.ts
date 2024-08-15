@@ -6,6 +6,7 @@ const config: GatsbyConfig = {
 
   plugins: [
     'gatsby-plugin-svgr',
+    'gatsby-plugin-postcss',
     {
       resolve: 'gatsby-plugin-manifest',
       options: {

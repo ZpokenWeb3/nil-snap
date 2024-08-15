@@ -6,6 +6,8 @@ module.exports = {
   },
   rules: {
     'no-void': ['error', { allowAsStatement: true }],
+    'jsdoc/require-jsdoc': 'off',
+    'import/no-unassigned-import': ['error', { allow: ['**/*.css'] }],
   },
 
   extends: ['@metamask/eslint-config'],
