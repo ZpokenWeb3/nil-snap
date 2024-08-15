@@ -8,6 +8,7 @@ module.exports = {
     'no-void': ['error', { allowAsStatement: true }],
     'jsdoc/require-jsdoc': 'off',
     'import/no-unassigned-import': ['error', { allow: ['**/*.css'] }],
+    '@typescript-eslint/consistent-type-definitions': 'false',
   },
 
   extends: ['@metamask/eslint-config'],

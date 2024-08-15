@@ -1,8 +1,9 @@
 import { useMetaMask } from '../hooks/useMetaMask';
 import { useRequestSnap } from '../hooks/useRequestSnap';
 import { shouldDisplayReconnectButton } from '../lib/button';
+import { Button } from './ui/button';
 
-export const HeaderButtons = () => {
+export const ConnectButton = () => {
   const requestSnap = useRequestSnap();
   const { isFlask, installedSnap } = useMetaMask();
 
@@ -16,7 +17,7 @@ export const HeaderButtons = () => {
 
   if (!installedSnap) {
     return (
-      <button
+      <Button
         type="button"
         onClick={() => {
           // eslint-disable-next-line no-void
@@ -25,15 +26,16 @@ export const HeaderButtons = () => {
             void requestSnap();
           })();
         }}
+        className="w-[146px]"
       >
         Connect
-      </button>
+      </Button>
     );
   }
 
   if (shouldDisplayReconnectButton(installedSnap)) {
     return (
-      <button
+      <Button
         type="button"
         onClick={() => {
           // eslint-disable-next-line no-void
@@ -42,9 +44,10 @@ export const HeaderButtons = () => {
             void requestSnap();
           })();
         }}
+        className="w-[146px]"
       >
         Reconnect
-      </button>
+      </Button>
     );
   }
 

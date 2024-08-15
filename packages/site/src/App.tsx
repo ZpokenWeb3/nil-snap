@@ -1,7 +1,7 @@
 import type { Account, Currency } from '@zpoken/metamask-nil-types';
 import { type FunctionComponent, type ReactNode, useEffect } from 'react';
 
-import { HeaderButtons } from './components/Buttons';
+import { Header } from './components/Header';
 import { useMetaMaskContext } from './hooks/MetamaskContext';
 import { useInvokeSnap } from './hooks/useInvokeSnap';
 import { useStore } from './state';
@@ -53,9 +53,9 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
   }, [provider]);
 
   return (
-    <>
-      <HeaderButtons />
-      {children}
-    </>
+    <div className="flex flex-col gap-5 pt-5 px-6">
+      <Header />
+      <div className="flex gap-5">{children}</div>
+    </div>
   );
 };
