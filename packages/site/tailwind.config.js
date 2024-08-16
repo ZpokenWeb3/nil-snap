@@ -51,6 +51,9 @@ module.exports = {
           secondary: 'hsl(var(--icon-secondary))',
           background: 'hsl(var(--icon-background))',
         },
+        text: {
+          secondary: 'hsl(var(--text-secondary))',
+        },
       },
       borderRadius: {
         lg: `var(--radius)`,
@@ -73,6 +76,10 @@ module.exports = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+      },
+      backgroundImage: {
+        'button-gradient':
+          'linear-gradient(90deg, rgba(21, 20, 25, 0.4) 0%, rgba(153, 153, 153, 0.5) 50%, rgba(21, 20, 25, 0.4) 100%)',
       },
     },
   },
