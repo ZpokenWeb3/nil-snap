@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@metamask/providers": "^16.0.0",
+    "@radix-ui/react-scroll-area": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@zpoken/metamask-nil-types": "workspace:^",
     "autoprefixer": "^10.4.20",
