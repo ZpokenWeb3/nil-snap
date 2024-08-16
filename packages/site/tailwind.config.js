@@ -54,6 +54,9 @@ module.exports = {
         text: {
           secondary: 'hsl(var(--text-secondary))',
         },
+        table: {
+          cell: 'hsl(var(--table-cell))',
+        },
       },
       borderRadius: {
         lg: `var(--radius)`,

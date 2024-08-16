@@ -56,7 +56,7 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
   return (
     <div className="flex flex-col gap-5 pt-5 px-6 h-screen m-0 pb-6">
       <Header />
-      <div className="flex gap-5 overflow-hidden">
+      <div className="flex gap-5 overflow-y-hidden">
         <aside className="basis-[266px] bg-card ">asd</aside>
         <div className="flex-1">{children}</div>
       </div>
