@@ -1,8 +1,9 @@
 import { LocalECDSAKeySigner, WalletV1 } from '@nilfoundation/niljs';
+import { Address } from '@zpoken/metamask-nil-types';
 
 import { client } from './client';
 
-export const getWallet = async (privateKey: `0x${string}`) => {
+export const getWallet = async (privateKey: Address) => {
   const signer = new LocalECDSAKeySigner({
     privateKey,
   });

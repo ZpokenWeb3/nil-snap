@@ -1,4 +1,4 @@
-import type { Account, Currency } from '@zpoken/metamask-nil-types';
+import { type Account, type Currency } from '@zpoken/metamask-nil-types';
 import { type FunctionComponent, type ReactNode, useEffect } from 'react';
 
 import { Header } from './components/Header';
@@ -26,27 +26,27 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
     void (async () => {
       try {
         const account = (await request({
-          method: 'nill_createAccount',
+          method: 'nil_createAccount',
         })) as Account;
         setAccounts([account]);
 
         const balance = (await request({
-          method: 'nill_getBalance',
+          method: 'nil_getBalance',
           params: {
-            userAddress: account.account,
+            userAddress: account.address,
           },
         })) as string;
 
-        setBalances({ [account.account]: balance });
+        setBalances({ [account.address]: balance ?? '0' });
 
         const currencies = (await request({
-          method: 'nill_getCurrencies',
+          method: 'nil_getCurrencies',
           params: {
-            userAddress: account.account,
+            userAddress: account.address,
           },
         })) as Currency[];
 
-        setCurrencies({ [account.account]: currencies });
+        setCurrencies({ [account.address]: currencies });
       } catch (error) {
         //
       }

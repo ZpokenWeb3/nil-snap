@@ -1,9 +1,10 @@
 import { Faucet } from '@nilfoundation/niljs';
+import { GetBalanceRequestParams } from '@zpoken/metamask-nil-types';
 
-import type { ApiParams, GetBalanceRequestParams } from '../types/snapApi';
+import type { ApiParams } from '../types/snapApi';
 import { client } from './client';
 
-export const faucetToken = async (params: ApiParams) => {
+export const faucetToken = async (params: ApiParams): Promise<boolean> => {
   const { requestParams } = params;
   const { userAddress } = requestParams as GetBalanceRequestParams;
 

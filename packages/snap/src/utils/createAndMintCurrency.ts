@@ -3,13 +3,16 @@ import {
   MINTER_ADDRESS,
   waitTillCompleted,
 } from '@nilfoundation/niljs';
+import { Address } from '@zpoken/metamask-nil-types';
 import { encodeFunctionData } from 'viem';
 
 import type { ApiParams } from '../types/snapApi';
 import { client } from './client';
 import { getWallet } from './getWallet';
 
-export const createAndMintCurrency = async (params: ApiParams) => {
+export const createAndMintCurrency = async (
+  params: ApiParams,
+): Promise<boolean> => {
   const { keyDeriver } = params;
 
   if (!keyDeriver) {
@@ -24,11 +27,11 @@ export const createAndMintCurrency = async (params: ApiParams) => {
     throw new Error('Private key wasn`t found!');
   }
 
-  const walletV1 = await getWallet(privateKey as `0x${string}`);
+  const wallet = await getWallet(privateKey as Address);
 
-  const walletAddress = walletV1.getAddressHex();
+  const walletAddress = wallet.getAddressHex();
 
-  const currencyCreationMessage = await walletV1.sendMessage({
+  const currencyCreationMessage = await wallet.sendMessage({
     to: MINTER_ADDRESS,
     feeCredit: 1_000_000n,
     value: 100_000_000n,
@@ -39,6 +42,6 @@ export const createAndMintCurrency = async (params: ApiParams) => {
     }),
   });
 
-  await waitTillCompleted(client, 1, currencyCreationMessage);
+  await waitTillCompleted(client, wallet.shardId, currencyCreationMessage);
   return true;
 };

@@ -1,7 +1,9 @@
+import { Account, Address } from '@zpoken/metamask-nil-types';
+
 import type { ApiParams } from '../types/snapApi';
 import { getWallet } from './getWallet';
 
-export const createAccount = async (params: ApiParams) => {
+export const createAccount = async (params: ApiParams): Promise<Account> => {
   const { keyDeriver } = params;
 
   if (!keyDeriver) {
@@ -16,12 +18,11 @@ export const createAccount = async (params: ApiParams) => {
     throw new Error('Private key wasn`t found!');
   }
 
-  const walletV1 = await getWallet(privateKey as `0x${string}`);
-
-  const walletAddress = walletV1.getAddressHex();
+  const wallet = await getWallet(privateKey as Address);
 
   return {
-    account: walletAddress,
-    isDeployed: await walletV1.checkDeploymentStatus(),
+    address: wallet.getAddressHex(),
+    isDeployed: await wallet.checkDeploymentStatus(),
+    shardId: wallet.shardId,
   };
 };

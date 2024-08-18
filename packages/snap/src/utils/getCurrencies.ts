@@ -1,7 +1,9 @@
-import type { ApiParams, GetBalanceRequestParams } from '../types/snapApi';
+import { Currency, GetBalanceRequestParams } from '@zpoken/metamask-nil-types';
+
+import type { ApiParams } from '../types/snapApi';
 import { client } from './client';
 
-export const getCurrencies = async (params: ApiParams) => {
+export const getCurrencies = async (params: ApiParams): Promise<Currency[]> => {
   const { requestParams } = params;
   const { userAddress } = requestParams as GetBalanceRequestParams;
 

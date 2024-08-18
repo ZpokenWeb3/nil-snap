@@ -35,7 +35,7 @@ export const createWalletSlice =
       },
       setDeploySatus: (account) => {
         const accounts = get().wallet.accounts.map((i) => {
-          if (account === i.account) {
+          if (account === i.address) {
             return {
               ...i,
               isDeployed: true,
