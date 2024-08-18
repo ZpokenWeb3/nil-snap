@@ -1,5 +1,5 @@
 import type { SLIP10Node } from '@metamask/key-tree';
-import type { SnapsProvider } from '@metamask/snaps-sdk';
+import type { Address, SnapsProvider } from '@metamask/snaps-sdk';
 
 import type { SnapState } from './snapState';
 
@@ -9,7 +9,7 @@ export type BaseRequestParams = {
 };
 
 export type GetBalanceRequestParams = {
-  userAddress: `0x${string}`;
+  userAddress: Address;
 } & BaseRequestParams;
 
 export type MintToAddressRequestParams = {
