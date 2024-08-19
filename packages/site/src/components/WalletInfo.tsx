@@ -12,7 +12,7 @@ export const WalletInfo = () => {
   const { selectedAccount, deploy } = useStore(walletSelector);
 
   return (
-    <div className="bg-card mb-[10px] px-[30px] py-5 border-[0.5px] border-border rounded-lg flex justify-between items-center">
+    <div className="bg-card mb-[10px] px-[30px] py-5 border-[0.5px] border-border-secondary rounded-lg flex justify-between items-center">
       <div className="flex flex-col gap-2">
         <p className="text-xl leading-[30px] font-semibold pb-[2px]">
           Main Wallet
