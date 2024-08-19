@@ -24,7 +24,7 @@ export type FaucetResponse = {
 export type SendRequest = {
   recipient: string;
   amount: string;
-  tokenId?: Address;
+  tokenId?: string;
 };
 
 export type SendResponse = {

@@ -45,7 +45,7 @@ export const CurrencyTable = () => {
                 {i.name === 'ETH' && (
                   <Button
                     variant="gradient"
-                    className="px-4"
+                    className="w-[100px]"
                     onClick={() => {
                       void faucet();
                     }}
@@ -53,10 +53,10 @@ export const CurrencyTable = () => {
                     Faucet
                   </Button>
                 )}
-                {selectedAccount.address.includes(i.name.slice(2)) && (
+                {i.id && selectedAccount.address.includes(i.id.slice(2)) && (
                   <Button
                     variant="gradient"
-                    className="px-4"
+                    className="w-[100px]"
                     onClick={() => {
                       void mint();
                     }}

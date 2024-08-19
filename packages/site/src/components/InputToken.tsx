@@ -1,3 +1,4 @@
+import { Currency } from '@zpoken/metamask-nil-types';
 import { KeyboardEventHandler } from 'react';
 
 import { useWheelPrevent } from '../hooks/useWheelPrevent';
@@ -7,8 +8,13 @@ import { Input, InputProps } from './ui/input';
 export const InputToken = ({
   label,
   maxExponent,
+  currency,
   ...props
-}: { label: string; maxExponent?: number } & InputProps) => {
+}: {
+  label: string;
+  maxExponent?: number;
+  currency: Currency | undefined;
+} & InputProps) => {
   const inputRef = useWheelPrevent();
 
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
@@ -42,7 +48,7 @@ export const InputToken = ({
           type="number"
           onKeyDown={onKeyDown}
         />
-        <CurrencyCard currency={{ name: 'ETH', decimals: 18, value: '0' }} />
+        {currency && <CurrencyCard currency={currency} />}
       </div>
     </div>
   );

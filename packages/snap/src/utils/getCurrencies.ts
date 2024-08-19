@@ -17,11 +17,11 @@ export const getCurrencies = async (params: ApiParams): Promise<Currency[]> => {
       value: nativeBalance.toString(),
       name: 'ETH',
     },
-    ...Object.entries(currencies).map((i) => {
+    ...Object.entries(currencies).map((i, index) => {
       return {
         value: i[1].toString(),
         //TODO add name
-        name: i[0].toString(),
+        name: `Token${index + 1}`,
         id: i[0].toString(),
       };
     }),

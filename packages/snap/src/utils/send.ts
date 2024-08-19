@@ -28,7 +28,7 @@ export const send = async (params: ApiParams): Promise<SendResponse> => {
   if (tokenId) {
     tx.tokens = [
       {
-        id: hexToBigInt(tokenId),
+        id: hexToBigInt(tokenId as Address),
         amount: BigInt(amount),
       },
     ];

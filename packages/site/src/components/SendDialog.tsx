@@ -1,8 +1,10 @@
 import { Send } from 'lucide-react';
+import { useEffect } from 'react';
 
 import { cn } from '../lib/utils';
 import { useStore } from '../state';
 import { sendSelector } from '../state/send';
+import { walletSelector } from '../state/wallet';
 import { InputToken } from './InputToken';
 import { TextInput } from './TextInput';
 import { Button, buttonVariants } from './ui/button';
@@ -16,8 +18,24 @@ import {
 } from './ui/dialog';
 
 export const SendDialog = () => {
-  const { amount, recipient, setAmount, setRecipient, sendTx } =
-    useStore(sendSelector);
+  const {
+    amount,
+    recipient,
+    currency,
+    setAmount,
+    setRecipient,
+    sendTx,
+    setCurrency,
+  } = useStore(sendSelector);
+
+  const { currencies, selectedAccount } = useStore(walletSelector);
+
+  useEffect(() => {
+    const all = currencies[selectedAccount?.address!];
+    if (!all?.length) return;
+
+    setCurrency(all[0]!);
+  }, [currencies]);
 
   return (
     <Dialog>
@@ -51,6 +69,7 @@ export const SendDialog = () => {
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               maxExponent={12}
+              currency={currency}
             />
             <TextInput
               label="Receiver"
