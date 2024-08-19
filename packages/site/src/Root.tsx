@@ -1,5 +1,6 @@
 import type { FunctionComponent, ReactNode } from 'react';
 
+import { Toaster } from './components/ui/toaster';
 import { MetaMaskProvider } from './hooks/MetamaskContext';
 import './style/globals.css';
 
@@ -8,5 +9,10 @@ export type RootProps = {
 };
 
 export const Root: FunctionComponent<RootProps> = ({ children }) => {
-  return <MetaMaskProvider>{children}</MetaMaskProvider>;
+  return (
+    <MetaMaskProvider>
+      {children}
+      <Toaster />
+    </MetaMaskProvider>
+  );
 };

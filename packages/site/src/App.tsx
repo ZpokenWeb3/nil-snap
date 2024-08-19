@@ -25,28 +25,30 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
 
     void (async () => {
       try {
-        const account = (await request({
+        const account = await request<Account>({
           method: 'nil_createAccount',
-        })) as Account;
+        });
+        if (!account) return;
+
         setAccounts([account]);
 
-        const balance = (await request({
+        const balance = await request<string>({
           method: 'nil_getBalance',
           params: {
             userAddress: account.address,
           },
-        })) as string;
+        });
 
         setBalances({ [account.address]: balance ?? '0' });
 
-        const currencies = (await request({
+        const currencies = await request<Currency[]>({
           method: 'nil_getCurrencies',
           params: {
             userAddress: account.address,
           },
-        })) as Currency[];
+        });
 
-        setCurrencies({ [account.address]: currencies });
+        setCurrencies({ [account.address]: currencies ?? [] });
       } catch (error) {
         //
       }
