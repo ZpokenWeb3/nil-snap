@@ -5,6 +5,7 @@ import type {
   Currency,
   FaucetResponse,
   GetCurrenciesResponse,
+  MintRequest,
 } from '@zpoken/metamask-nil-types';
 
 import type { AllSlices, SliceCreator } from '.';
@@ -19,6 +20,7 @@ export type WalletSlice = {
   deploy: () => Promise<void>;
   faucet: () => Promise<void>;
   createCurrency: () => Promise<void>;
+  mint: () => Promise<void>;
 };
 
 export const createWalletSlice =
@@ -109,6 +111,16 @@ export const createWalletSlice =
             amount: '10000000000000',
           },
         );
+
+        if (res) {
+          const { getCurrencies } = get().wallet;
+          await getCurrencies();
+        }
+      },
+      mint: async () => {
+        const res = await request<boolean, MintRequest>('nil_mint', {
+          amount: '10000000000000',
+        });
 
         if (res) {
           const { getCurrencies } = get().wallet;

@@ -36,10 +36,15 @@ export type CreateCurrencyRequest = {
   name: string;
 };
 
+export type MintRequest = {
+  amount: string;
+};
+
 export type ApiRequest =
   | GetCurrenciesResponse
   | SendRequest
-  | CreateCurrencyRequest;
+  | CreateCurrencyRequest
+  | MintRequest;
 
 export type NilMethods =
   | 'nil_createAccount'
@@ -47,4 +52,5 @@ export type NilMethods =
   | 'nil_faucet'
   | 'nil_getCurrencies'
   | 'nil_createCurrency'
-  | 'nil_send';
+  | 'nil_send'
+  | 'nil_mint';

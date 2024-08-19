@@ -8,6 +8,7 @@ import { deployAccount } from './utils/deployAccount';
 import { faucetToken } from './utils/faucet';
 import { getCurrencies } from './utils/getCurrencies';
 import { getAddressKeyDeriver } from './utils/keyPair';
+import { mint } from './utils/mint';
 import { send } from './utils/send';
 
 export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
@@ -37,6 +38,9 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
     case 'nil_send':
       apiParams.keyDeriver = await getAddressKeyDeriver(snap);
       return await send(apiParams);
+    case 'nil_mint':
+      apiParams.keyDeriver = await getAddressKeyDeriver(snap);
+      return await mint(apiParams);
     default:
       throw new Error('Method not found.');
   }

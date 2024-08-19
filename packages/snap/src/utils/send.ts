@@ -7,6 +7,7 @@ import { Address, SendRequest, SendResponse } from '@zpoken/metamask-nil-types';
 
 import type { ApiParams } from '../types/snapApi';
 import { client } from './client';
+import { getPrivateKey } from './getPrivateKey';
 import { getWallet } from './getWallet';
 
 export const send = async (params: ApiParams): Promise<SendResponse> => {
@@ -14,17 +15,7 @@ export const send = async (params: ApiParams): Promise<SendResponse> => {
 
   const { recipient, amount, tokenId } = requestParams as SendRequest;
 
-  if (!keyDeriver) {
-    throw new Error('KeyDeriver wasn`t found!');
-  }
-
-  const accountKey = await keyDeriver.derive(["bip32:0'"]);
-
-  const { privateKey } = accountKey;
-
-  if (!privateKey) {
-    throw new Error('Private key wasn`t found!');
-  }
+  const privateKey = await getPrivateKey(keyDeriver);
 
   const wallet = await getWallet(privateKey as Address);
 

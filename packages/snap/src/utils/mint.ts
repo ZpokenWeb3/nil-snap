@@ -1,9 +1,10 @@
 import {
   MINTER_ABI,
   MINTER_ADDRESS,
+  hexToBigInt,
   waitTillCompleted,
 } from '@nilfoundation/niljs';
-import { Address, CreateCurrencyRequest } from '@zpoken/metamask-nil-types';
+import { Address, MintRequest } from '@zpoken/metamask-nil-types';
 import { encodeFunctionData } from 'viem';
 
 import type { ApiParams } from '../types/snapApi';
@@ -11,10 +12,10 @@ import { client } from './client';
 import { getPrivateKey } from './getPrivateKey';
 import { getWallet } from './getWallet';
 
-export const createCurrency = async (params: ApiParams): Promise<boolean> => {
+export const mint = async (params: ApiParams): Promise<boolean> => {
   const { keyDeriver, requestParams } = params;
 
-  const { name, amount } = requestParams as CreateCurrencyRequest;
+  const { amount } = requestParams as MintRequest;
 
   const privateKey = await getPrivateKey(keyDeriver);
 
@@ -22,18 +23,18 @@ export const createCurrency = async (params: ApiParams): Promise<boolean> => {
 
   const walletAddress = wallet.getAddressHex();
 
-  const currencyCreationMessage = await wallet.sendMessage({
+  const hash = await wallet.sendMessage({
     to: MINTER_ADDRESS,
-    feeCredit: 1_000_000n,
-    value: 100_000_000n,
+    feeCredit: 5_000_000n,
+    value: 1_000_000n,
     data: encodeFunctionData({
       abi: MINTER_ABI,
-      functionName: 'create',
-      args: [BigInt(amount), walletAddress, name, walletAddress],
+      functionName: 'mint',
+      args: [hexToBigInt(walletAddress), BigInt(amount), walletAddress],
     }),
   });
 
-  await waitTillCompleted(client, wallet.shardId, currencyCreationMessage);
+  await waitTillCompleted(client, wallet.shardId, hash);
 
   return true;
 };

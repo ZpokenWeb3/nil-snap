@@ -13,7 +13,8 @@ import {
 } from './ui/table';
 
 export const CurrencyTable = () => {
-  const { currencies, selectedAccount, faucet } = useStore(walletSelector);
+  const { currencies, selectedAccount, faucet, mint } =
+    useStore(walletSelector);
 
   const tokens = currencies[selectedAccount?.address!]!;
 
@@ -57,7 +58,7 @@ export const CurrencyTable = () => {
                     variant="gradient"
                     className="px-4"
                     onClick={() => {
-                      void faucet();
+                      void mint();
                     }}
                   >
                     Mint
