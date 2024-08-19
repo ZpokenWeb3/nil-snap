@@ -14,7 +14,10 @@ module.exports = {
     },
     extend: {
       colors: {
-        border: 'hsl(var(--border))',
+        border: {
+          DEFAULT: 'hsl(var(--border))',
+          secondary: 'hsl(var(--border-secondary))',
+        },
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
@@ -56,6 +59,9 @@ module.exports = {
         },
         table: {
           cell: 'hsl(var(--table-cell))',
+        },
+        overlay: {
+          DEFAULT: 'hsl(var(--overlay))',
         },
       },
       borderRadius: {

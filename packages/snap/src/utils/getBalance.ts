@@ -1,4 +1,4 @@
-import { GetBalanceRequestParams } from '@zpoken/metamask-nil-types';
+import { GetBalanceRequest } from '@zpoken/metamask-nil-types';
 import { formatEther } from 'viem';
 
 import type { ApiParams } from '../types/snapApi';
@@ -6,7 +6,7 @@ import { client } from './client';
 
 export const getBalance = async (params: ApiParams): Promise<null | string> => {
   const { requestParams } = params;
-  const { userAddress } = requestParams as GetBalanceRequestParams;
+  const { userAddress } = requestParams as GetBalanceRequest;
 
   const balance = await client.getBalance(userAddress);
 

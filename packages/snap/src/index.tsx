@@ -1,5 +1,5 @@
 import type { OnRpcRequestHandler } from '@metamask/snaps-sdk';
-import { ApiRequestParams } from '@zpoken/metamask-nil-types';
+import { ApiRequest } from '@zpoken/metamask-nil-types';
 
 import type { ApiParams } from './types/snapApi';
 import { createAccount } from './utils/createAccount';
@@ -9,9 +9,10 @@ import { faucetToken } from './utils/faucet';
 import { getBalance } from './utils/getBalance';
 import { getCurrencies } from './utils/getCurrencies';
 import { getAddressKeyDeriver } from './utils/keyPair';
+import { send } from './utils/send';
 
 export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
-  const requestParams = request?.params as ApiRequestParams;
+  const requestParams = request?.params as ApiRequest;
 
   const apiParams: ApiParams = {
     requestParams,
@@ -34,6 +35,9 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
     case 'nil_createAndMint':
       apiParams.keyDeriver = await getAddressKeyDeriver(snap);
       return await createAndMintCurrency(apiParams);
+    case 'nil_send':
+      apiParams.keyDeriver = await getAddressKeyDeriver(snap);
+      return await send(apiParams);
     default:
       throw new Error('Method not found.');
   }

@@ -8,17 +8,21 @@ export type Account = {
 
 export type Currency = { id: string; balance: string };
 
-export type SendRequestParams = {
-  receiver: Address;
-  amount: string;
-  tokenId: number;
-};
-
-export type GetBalanceRequestParams = {
+export type GetBalanceRequest = {
   userAddress: Address;
 };
 
-export type ApiRequestParams = GetBalanceRequestParams | SendRequestParams;
+export type SendRequest = {
+  recipient: string;
+  amount: string;
+  tokenId?: Address;
+};
+
+export type SendResponse = {
+  hash: Address;
+};
+
+export type ApiRequest = GetBalanceRequest | SendRequest;
 
 export type NilMethods =
   | 'nil_createAccount'

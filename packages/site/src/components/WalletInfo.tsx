@@ -3,6 +3,7 @@ import React, { useMemo } from 'react';
 
 import { useStore } from '../state';
 import { walletSelector } from '../state/wallet';
+import { SendDialog } from './SendDialog';
 import { Button } from './ui/button';
 import { useToast } from './ui/use-toast';
 
@@ -53,16 +54,7 @@ export const WalletInfo = () => {
             <p>Receive</p>
           </div>
         </Button>
-        <Button
-          variant="gradient"
-          className="w-[105px]"
-          disabled={!account?.isDeployed}
-        >
-          <div className="flex items-center gap-[10px]">
-            <Send className="zise-5" />
-            <p>Send</p>
-          </div>
-        </Button>
+        <SendDialog />
       </div>
     </div>
   );

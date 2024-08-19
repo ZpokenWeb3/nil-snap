@@ -12,7 +12,7 @@
 
     /* Muted backgrounds such as <TabsList />, <Skeleton /> and <Switch /> */
     --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted-foreground:  240 1% 48%; /* #7A7A7C */
 
     /* Background color for popovers such as <DropdownMenu />, <HoverCard />, <Popover /> */
     --popover: 0 0% 100%;
@@ -20,9 +20,10 @@
 
     /* Default border color */
     --border: 240 1% 48%; /* #7A7A7C */
+    --border-secondary: 252 5% 19%; /* #2E2D32 */
 
     /* Border color for inputs such as <Input />, <Select />, <Textarea /> */
-    --input: 214.3 31.8% 91.4%;
+    --input: 252 5% 19%; /* #2E2D32 */
 
     /* Background color for <Card /> */
     --card: 252 8% 12%; /* #1D1C21 */
@@ -54,7 +55,8 @@
     --icon-background: 260 5% 11%; /* #1C1B1E */
     --icon-secondary: 240 1% 48%; /* #7A7A7C */
     --text-secondary: 240 5% 62%; /* #9999A2 */
-    --table-cell: 252 5% 19%;/* #2E2D32 */
+    --table-cell: 252 5% 19%; /* #2E2D32 */
+    --overlay: 0 0% 10%; /* #191919 */
   }
 }
 
