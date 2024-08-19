@@ -6,10 +6,19 @@ export type Account = {
   shardId: number;
 };
 
-export type Currency = { id: string; balance: string };
+export type Currency = {
+  decimals?: number;
+  value: string;
+  name: string;
+  id?: string;
+};
 
-export type GetBalanceRequest = {
-  userAddress: Address;
+export type GetCurrenciesResponse = {
+  account: Address;
+};
+
+export type FaucetResponse = {
+  account: Address;
 };
 
 export type SendRequest = {
@@ -22,12 +31,11 @@ export type SendResponse = {
   hash: Address;
 };
 
-export type ApiRequest = GetBalanceRequest | SendRequest;
+export type ApiRequest = GetCurrenciesResponse | SendRequest;
 
 export type NilMethods =
   | 'nil_createAccount'
   | 'nil_deployAccount'
-  | 'nil_getBalance'
   | 'nil_faucet'
   | 'nil_getCurrencies'
   | 'nil_createAndMint'

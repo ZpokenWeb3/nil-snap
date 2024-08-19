@@ -12,7 +12,7 @@ export const getWallet = async (privateKey: Address) => {
 
   const wallet = new WalletV1({
     pubkey,
-    salt: 16n,
+    salt: 76n,
     shardId: 1,
     client,
     signer,

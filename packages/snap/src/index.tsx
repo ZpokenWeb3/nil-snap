@@ -6,7 +6,6 @@ import { createAccount } from './utils/createAccount';
 import { createAndMintCurrency } from './utils/createAndMintCurrency';
 import { deployAccount } from './utils/deployAccount';
 import { faucetToken } from './utils/faucet';
-import { getBalance } from './utils/getBalance';
 import { getCurrencies } from './utils/getCurrencies';
 import { getAddressKeyDeriver } from './utils/keyPair';
 import { send } from './utils/send';
@@ -26,8 +25,6 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
     case 'nil_deployAccount':
       apiParams.keyDeriver = await getAddressKeyDeriver(snap);
       return await deployAccount(apiParams);
-    case 'nil_getBalance':
-      return await getBalance(apiParams);
     case 'nil_faucet':
       return await faucetToken(apiParams);
     case 'nil_getCurrencies':

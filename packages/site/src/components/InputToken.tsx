@@ -1,9 +1,10 @@
-import React, { KeyboardEventHandler } from 'react';
+import { KeyboardEventHandler } from 'react';
 
 import { useWheelPrevent } from '../hooks/useWheelPrevent';
+import { CurrencyCard } from './CurrencyCard';
 import { Input, InputProps } from './ui/input';
 
-export const SelectedInput = ({
+export const InputToken = ({
   label,
   maxExponent,
   ...props
@@ -41,10 +42,7 @@ export const SelectedInput = ({
           type="number"
           onKeyDown={onKeyDown}
         />
-        <div className="flex items-center gap-3">
-          <div className="size-[30px] rounded-[22px] bg-background" />
-          <p className="text-base font-medium">ETH</p>
-        </div>
+        <CurrencyCard currency={{ name: 'ETH', decimals: 18, value: '0' }} />
       </div>
     </div>
   );

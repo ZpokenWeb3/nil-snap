@@ -1,10 +1,9 @@
 import { Send } from 'lucide-react';
-import React from 'react';
 
 import { cn } from '../lib/utils';
 import { useStore } from '../state';
 import { sendSelector } from '../state/send';
-import { SelectedInput } from './InputToken';
+import { InputToken } from './InputToken';
 import { TextInput } from './TextInput';
 import { Button, buttonVariants } from './ui/button';
 import {
@@ -46,7 +45,7 @@ export const SendDialog = () => {
           }}
         >
           <div className="flex flex-col gap-6 pb-10 pt-6">
-            <SelectedInput
+            <InputToken
               label="Amount"
               placeholder="Amount"
               value={amount}

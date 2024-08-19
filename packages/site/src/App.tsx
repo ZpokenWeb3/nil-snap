@@ -12,14 +12,7 @@ export type AppProps = {
 export const App: FunctionComponent<AppProps> = ({ children }) => {
   const { provider } = useMetaMaskContext();
 
-  const {
-    getAccount,
-    getBalances,
-    getCurrencies,
-    accounts,
-    balances,
-    currencies,
-  } = useStore(walletSelector);
+  const { getAccount, getCurrencies } = useStore(walletSelector);
 
   useEffect(() => {
     if (!provider) {
@@ -29,7 +22,6 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
     void (async () => {
       try {
         await getAccount();
-        await getBalances();
         await getCurrencies();
       } catch (error) {
         //

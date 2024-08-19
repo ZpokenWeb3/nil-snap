@@ -34,7 +34,7 @@ export const createSendSlice = (): SliceCreator<SendSlice> => (set, get) => {
 
       const { recipient, amount } = get().send;
 
-      const { getBalances, getCurrencies } = get().wallet;
+      const { getCurrencies } = get().wallet;
 
       try {
         await request<SendResponse, SendRequest>('nil_send', {
@@ -42,7 +42,6 @@ export const createSendSlice = (): SliceCreator<SendSlice> => (set, get) => {
           amount,
         });
 
-        await getBalances();
         await getCurrencies();
 
         set((state) => {
