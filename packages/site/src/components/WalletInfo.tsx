@@ -9,7 +9,7 @@ import { useToast } from './ui/use-toast';
 
 export const WalletInfo = () => {
   const { toast } = useToast();
-  const { selectedAccount } = useStore(walletSelector);
+  const { selectedAccount, deploy } = useStore(walletSelector);
 
   return (
     <div className="bg-card mb-[10px] px-[30px] py-5 border-[0.5px] border-border rounded-lg flex justify-between items-center">
@@ -46,7 +46,14 @@ export const WalletInfo = () => {
       </div>
       <div className="flex gap-6">
         {!selectedAccount?.isDeployed && (
-          <Button className="w-[105px]">Deploy</Button>
+          <Button
+            className="w-[105px]"
+            onClick={() => {
+              void deploy();
+            }}
+          >
+            Deploy
+          </Button>
         )}
         <Button variant="gradient" className="w-[105px]">
           <div className="flex items-center gap-[10px]">

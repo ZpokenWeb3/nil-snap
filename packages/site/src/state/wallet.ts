@@ -15,7 +15,7 @@ export type WalletSlice = {
   getAccount: () => Promise<void>;
   currencies: Record<Address, Currency[]>;
   getCurrencies: () => Promise<void>;
-  setDeploySatus: (account: Address) => void;
+  deploy: () => Promise<void>;
   faucet: () => Promise<void>;
 };
 
@@ -51,22 +51,39 @@ export const createWalletSlice =
           };
         });
       },
-      setDeploySatus: (account) => {
-        const accounts = get().wallet.accounts.map((i) => {
-          if (account === i.address) {
+      deploy: async () => {
+        const { selectedAccount } = get().wallet;
+        if (!selectedAccount) return;
+
+        const res = await request<boolean, undefined>(
+          'nil_deployAccount',
+          undefined,
+        );
+
+        if (res) {
+          const accounts = get().wallet.accounts.map((i) => {
+            if (selectedAccount.address === i.address) {
+              return {
+                ...i,
+                isDeployed: true,
+              };
+            }
+
             return {
               ...i,
-              isDeployed: true,
             };
-          }
+          });
 
-          return {
-            ...i,
-          };
-        });
-        set((state) => {
-          state.wallet.accounts = accounts;
-        });
+          set((state) => {
+            state.wallet.accounts = accounts;
+            state.wallet.selectedAccount = accounts.find(
+              (i) => i.address === selectedAccount.address,
+            );
+          });
+
+          const { getCurrencies } = get().wallet;
+          await getCurrencies();
+        }
       },
       faucet: async () => {
         const { selectedAccount } = get().wallet;
