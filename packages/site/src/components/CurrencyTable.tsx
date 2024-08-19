@@ -52,6 +52,17 @@ export const CurrencyTable = () => {
                     Faucet
                   </Button>
                 )}
+                {selectedAccount.address.includes(i.name.slice(2)) && (
+                  <Button
+                    variant="gradient"
+                    className="px-4"
+                    onClick={() => {
+                      void faucet();
+                    }}
+                  >
+                    Mint
+                  </Button>
+                )}
               </TableCell>
             </TableRow>
           ))}

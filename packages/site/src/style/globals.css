@@ -35,7 +35,7 @@
 
     /* Secondary colors for <Button /> */
     --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary-foreground: 240 1% 48%; /* #7A7A7C */
 
     /* Used for accents such as hover effects on <DropdownMenuItem>, <SelectItem>...etc */
     --accent: 210 40% 96.1%;

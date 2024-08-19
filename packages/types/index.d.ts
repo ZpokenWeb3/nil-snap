@@ -31,12 +31,20 @@ export type SendResponse = {
   hash: Address;
 };
 
-export type ApiRequest = GetCurrenciesResponse | SendRequest;
+export type CreateCurrencyRequest = {
+  amount: string;
+  name: string;
+};
+
+export type ApiRequest =
+  | GetCurrenciesResponse
+  | SendRequest
+  | CreateCurrencyRequest;
 
 export type NilMethods =
   | 'nil_createAccount'
   | 'nil_deployAccount'
   | 'nil_faucet'
   | 'nil_getCurrencies'
-  | 'nil_createAndMint'
+  | 'nil_createCurrency'
   | 'nil_send';

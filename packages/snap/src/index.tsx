@@ -1,9 +1,9 @@
 import type { OnRpcRequestHandler } from '@metamask/snaps-sdk';
-import { ApiRequest } from '@zpoken/metamask-nil-types';
+import { ApiRequest, NilMethods } from '@zpoken/metamask-nil-types';
 
 import type { ApiParams } from './types/snapApi';
 import { createAccount } from './utils/createAccount';
-import { createAndMintCurrency } from './utils/createAndMintCurrency';
+import { createCurrency } from './utils/createCurrency';
 import { deployAccount } from './utils/deployAccount';
 import { faucetToken } from './utils/faucet';
 import { getCurrencies } from './utils/getCurrencies';
@@ -18,7 +18,9 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
     wallet: snap,
   };
 
-  switch (request.method) {
+  const methos = request.method as NilMethods;
+
+  switch (methos) {
     case 'nil_createAccount':
       apiParams.keyDeriver = await getAddressKeyDeriver(snap);
       return await createAccount(apiParams);
@@ -29,9 +31,9 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
       return await faucetToken(apiParams);
     case 'nil_getCurrencies':
       return await getCurrencies(apiParams);
-    case 'nil_createAndMint':
+    case 'nil_createCurrency':
       apiParams.keyDeriver = await getAddressKeyDeriver(snap);
-      return await createAndMintCurrency(apiParams);
+      return await createCurrency(apiParams);
     case 'nil_send':
       apiParams.keyDeriver = await getAddressKeyDeriver(snap);
       return await send(apiParams);

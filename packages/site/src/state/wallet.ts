@@ -1,6 +1,7 @@
 import type {
   Account,
   Address,
+  CreateCurrencyRequest,
   Currency,
   FaucetResponse,
   GetCurrenciesResponse,
@@ -17,6 +18,7 @@ export type WalletSlice = {
   getCurrencies: () => Promise<void>;
   deploy: () => Promise<void>;
   faucet: () => Promise<void>;
+  createCurrency: () => Promise<void>;
 };
 
 export const createWalletSlice =
@@ -93,6 +95,20 @@ export const createWalletSlice =
         const res = await request<boolean, FaucetResponse>('nil_faucet', {
           account: selectedAccount.address,
         });
+
+        if (res) {
+          const { getCurrencies } = get().wallet;
+          await getCurrencies();
+        }
+      },
+      createCurrency: async () => {
+        const res = await request<boolean, CreateCurrencyRequest>(
+          'nil_createCurrency',
+          {
+            name: 'Test',
+            amount: '10000000000000',
+          },
+        );
 
         if (res) {
           const { getCurrencies } = get().wallet;
