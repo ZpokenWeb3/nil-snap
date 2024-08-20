@@ -3,6 +3,7 @@ import {
   SendRequest,
   SendResponse,
 } from '@zpoken/metamask-nil-types';
+import { parseUnits } from 'viem';
 
 import type { AllSlices, SliceCreator } from '.';
 import { request } from '../lib/snapRequest';
@@ -51,13 +52,19 @@ export const createSendSlice = (): SliceCreator<SendSlice> => (set, get) => {
       try {
         const req: SendRequest = {
           recipient,
-          amount,
+          amount: currency?.decimals
+            ? parseUnits(amount, currency.decimals).toString()
+            : amount,
         };
+
+        console.log(currency);
 
         if (currency?.id) {
           req.tokenId = currency.id;
         }
         const res = await request<SendResponse, SendRequest>('nil_send', req);
+
+        console.log(res);
 
         if (res) {
           await getCurrencies();

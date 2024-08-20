@@ -71,7 +71,9 @@ export const createWalletSlice =
           { account: selectedAccount.address },
         );
 
-        const filteredTxs = getUniqueListBy<Transaction>(txs, 'hash');
+        const filteredTxs = getUniqueListBy<Transaction>(txs, 'hash').sort(
+          (a, b) => b.block_id - a.block_id,
+        );
 
         set((state) => {
           state.wallet.transactions = filteredTxs;

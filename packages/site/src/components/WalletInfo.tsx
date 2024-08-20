@@ -1,4 +1,4 @@
-import { ArrowDownFromLine, Copy, Send, User2 } from 'lucide-react';
+import { Copy, User2 } from 'lucide-react';
 import React from 'react';
 
 import { useStore } from '../state';
@@ -55,12 +55,6 @@ export const WalletInfo = () => {
             Deploy
           </Button>
         )}
-        <Button variant="gradient" className="w-[105px]">
-          <div className="flex items-center gap-[10px]">
-            <ArrowDownFromLine className="zise-5" />
-            <p>Receive</p>
-          </div>
-        </Button>
         <SendDialog />
       </div>
     </div>

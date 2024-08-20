@@ -4,16 +4,27 @@ import { KeyboardEventHandler } from 'react';
 import { useWheelPrevent } from '../hooks/useWheelPrevent';
 import { CurrencyCard } from './CurrencyCard';
 import { Input, InputProps } from './ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from './ui/select';
 
 export const InputToken = ({
   label,
   maxExponent,
-  currency,
+  selectedCurrency,
+  currencies,
+  setCurrency,
   ...props
 }: {
   label: string;
   maxExponent?: number;
-  currency: Currency | undefined;
+  selectedCurrency: Currency | undefined;
+  currencies: Currency[];
+  setCurrency: (currency: Currency) => void;
 } & InputProps) => {
   const inputRef = useWheelPrevent();
 
@@ -40,7 +51,7 @@ export const InputToken = ({
   return (
     <div className="flex flex-col gap-2">
       <p className="text-base font-medium">{label}</p>
-      <div className="rounded-lg bg-input/80 flex items-center pr-[26px]">
+      <div className="rounded-lg bg-input/80 flex items-center pr-[18px]">
         <Input
           className="rounded-none rounded-l-lg bg-input/0"
           ref={inputRef}
@@ -48,7 +59,25 @@ export const InputToken = ({
           type="number"
           onKeyDown={onKeyDown}
         />
-        {currency && <CurrencyCard currency={currency} />}
+        {selectedCurrency && currencies.length && (
+          <Select
+            defaultValue={selectedCurrency.name ?? 'ETH'}
+            onValueChange={(v) =>
+              setCurrency(currencies.find((i) => i.name === v)!)
+            }
+          >
+            <SelectTrigger className="min-w-[144px] w-fit">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className="min-w-[144px] w-fit">
+              {currencies.map((i) => (
+                <SelectItem value={i.name} className="text-foreground">
+                  <CurrencyCard currency={i} />
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        )}
       </div>
     </div>
   );

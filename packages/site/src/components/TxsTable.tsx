@@ -31,7 +31,7 @@ export const TxsTable = () => {
   return (
     <ScrollArea className="grow overflow-auto">
       <div className="flex flex-col gap-4">
-        <div className="h-6 grid grid-cols-8 text-lg font-medium items-center ">
+        <div className="grid grid-cols-8 text-lg font-medium items-center ">
           <p className="text-left ">Hash</p>
           <p className="text-center">Status</p>
           <p className="text-center">Method</p>
@@ -81,14 +81,14 @@ export const TxsTable = () => {
                 {`${i.shard_id}:${i.block_id}`}
               </a>
               <a
-                href={`https://explore.nil.foundation/address/${i.from}`}
+                href={`https://explore.nil.foundation/address/${i.from.toLowerCase()}`}
                 target="_blank"
                 className="underline text-link font-semibold text-center"
               >
                 {cutAddress(i.from)}
               </a>
               <a
-                href={`https://explore.nil.foundation/address/${i.to}`}
+                href={`https://explore.nil.foundation/address/${i.to.toLowerCase()}`}
                 target="_blank"
                 className="underline text-link font-semibold text-center"
               >

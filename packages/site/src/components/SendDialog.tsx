@@ -35,7 +35,7 @@ export const SendDialog = () => {
     if (!all?.length) return;
 
     setCurrency(all[0]!);
-  }, [currencies]);
+  }, [currencies[selectedAccount?.address!]?.length]);
 
   return (
     <Dialog>
@@ -68,8 +68,10 @@ export const SendDialog = () => {
               placeholder="Amount"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              maxExponent={12}
-              currency={currency}
+              maxExponent={currency?.decimals ?? 100000000000000}
+              selectedCurrency={currency}
+              currencies={currencies[selectedAccount?.address!] ?? []}
+              setCurrency={setCurrency}
             />
             <TextInput
               label="Receiver"

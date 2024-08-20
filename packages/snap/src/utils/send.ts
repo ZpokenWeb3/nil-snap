@@ -31,7 +31,7 @@ export const send = async (
 
   const tx: SendMessageParams = {
     to: recipient as Address,
-    feeCredit: 100_000n * 10n,
+    feeCredit: 1_000_000n,
     value: 0n,
   };
 
