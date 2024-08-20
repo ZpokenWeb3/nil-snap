@@ -71,7 +71,7 @@ export const send = async (
   });
 
   if (!response) {
-    return false;
+    throw new Error('User denied request!');
   }
 
   const hash = await wallet.sendMessage(tx);

@@ -11,7 +11,7 @@ export const getTransactions = async (
   const batch = 1;
   const address = account.slice(2);
   const offset = 0;
-  const limit = 500;
+  const limit = 100;
 
   // Create the input JSON object
   const input = JSON.stringify({
@@ -30,5 +30,5 @@ export const getTransactions = async (
     )
   ).json();
 
-  return data[0].result.data;
+  return data![0]!.result!.data! ?? [];
 };
