@@ -63,6 +63,9 @@ module.exports = {
         overlay: {
           DEFAULT: 'hsl(var(--overlay))',
         },
+        failed: 'hsl(var(--failed))',
+        success: 'hsl(var(--success))',
+        link: 'hsl(var(--link))',
       },
       borderRadius: {
         lg: `var(--radius)`,

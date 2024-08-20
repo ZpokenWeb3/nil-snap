@@ -40,6 +40,24 @@ export type MintRequest = {
   amount: string;
 };
 
+export type Transaction = {
+  block_hash: string;
+  block_id: number;
+  fee_credit: string;
+  flags: number;
+  from: string;
+  gas_used: number;
+  hash: string;
+  method: string;
+  outgoing: boolean;
+  seqno: number;
+  shard_id: number;
+  success: true;
+  timestamp: string;
+  to: string;
+  value: string;
+};
+
 export type ApiRequest =
   | GetCurrenciesResponse
   | SendRequest
@@ -53,4 +71,5 @@ export type NilMethods =
   | 'nil_getCurrencies'
   | 'nil_createCurrency'
   | 'nil_send'
-  | 'nil_mint';
+  | 'nil_mint'
+  | 'nil_getTransactions';

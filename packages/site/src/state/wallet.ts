@@ -6,9 +6,11 @@ import type {
   FaucetResponse,
   GetCurrenciesResponse,
   MintRequest,
+  Transaction,
 } from '@zpoken/metamask-nil-types';
 
 import type { AllSlices, SliceCreator } from '.';
+import { getUniqueListBy } from '../lib/getUniqueListBy';
 import { request } from '../lib/snapRequest';
 
 export type WalletSlice = {
@@ -17,6 +19,8 @@ export type WalletSlice = {
   getAccount: () => Promise<void>;
   currencies: Record<Address, Currency[]>;
   getCurrencies: () => Promise<void>;
+  transactions: Transaction[];
+  getTransactions: () => Promise<void>;
   deploy: () => Promise<void>;
   faucet: () => Promise<void>;
   createCurrency: () => Promise<void>;
@@ -29,6 +33,7 @@ export const createWalletSlice =
       accounts: [],
       selectedAccount: undefined,
       currencies: {},
+      transactions: [],
       getAccount: async () => {
         const account = await request<Account, undefined>(
           'nil_createAccount',
@@ -53,6 +58,23 @@ export const createWalletSlice =
           state.wallet.currencies = {
             [selectedAccount.address]: currencies ?? [],
           };
+        });
+      },
+
+      getTransactions: async () => {
+        const { selectedAccount } = get().wallet;
+
+        if (!selectedAccount) return;
+
+        const txs = await request<Transaction[], GetCurrenciesResponse>(
+          'nil_getTransactions',
+          { account: selectedAccount.address },
+        );
+
+        const filteredTxs = getUniqueListBy<Transaction>(txs, 'hash');
+
+        set((state) => {
+          state.wallet.transactions = filteredTxs;
         });
       },
       deploy: async () => {

@@ -12,7 +12,7 @@
 
     /* Muted backgrounds such as <TabsList />, <Skeleton /> and <Switch /> */
     --muted: 210 40% 96.1%;
-    --muted-foreground:  240 1% 48%; /* #7A7A7C */
+    --muted-foreground: 240 1% 48%; /* #7A7A7C */
 
     /* Background color for popovers such as <DropdownMenu />, <HoverCard />, <Popover /> */
     --popover: 0 0% 100%;
@@ -57,6 +57,9 @@
     --text-secondary: 240 5% 62%; /* #9999A2 */
     --table-cell: 252 5% 19%; /* #2E2D32 */
     --overlay: 0 0% 10%; /* #191919 */
+    --failed: 0 75% 69%; /* #EB7676 */
+    --success: 117 66% 87%; /* #CBF4C9 */
+    --link: 240 100% 94%; /* #E0E0FF */
   }
 }
 

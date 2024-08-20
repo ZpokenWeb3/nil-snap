@@ -6,6 +6,7 @@ import { createCurrency } from './utils/createCurrency';
 import { deployAccount } from './utils/deployAccount';
 import { faucetToken } from './utils/faucet';
 import { getCurrencies } from './utils/getCurrencies';
+import { getTransactions } from './utils/getTransactions';
 import { getAddressKeyDeriver } from './utils/keyPair';
 import { mint } from './utils/mint';
 import { send } from './utils/send';
@@ -26,6 +27,8 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
       return await faucetToken(apiParams);
     case 'nil_getCurrencies':
       return await getCurrencies(apiParams);
+    case 'nil_getTransactions':
+      return await getTransactions(apiParams);
 
     // Private methods should include keyDeriver
     case 'nil_createAccount':

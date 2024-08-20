@@ -13,7 +13,8 @@ export type AppProps = {
 export const App: FunctionComponent<AppProps> = ({ children }) => {
   const { provider } = useMetaMaskContext();
 
-  const { getAccount, getCurrencies } = useStore(walletSelector);
+  const { selectedAccount, getAccount, getCurrencies } =
+    useStore(walletSelector);
 
   useEffect(() => {
     if (!provider) {
@@ -23,12 +24,25 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
     void (async () => {
       try {
         await getAccount();
-        await getCurrencies();
       } catch (error) {
         //
       }
     })();
   }, [provider]);
+
+  useEffect(() => {
+    if (!selectedAccount) {
+      return;
+    }
+
+    void (async () => {
+      try {
+        await getCurrencies();
+      } catch (error) {
+        //
+      }
+    })();
+  }, [selectedAccount]);
 
   return (
     <div className="flex flex-col gap-5 pt-5 px-6 h-screen m-0 pb-6">
