@@ -1,5 +1,6 @@
 import { Account, Transaction } from '@zpoken/metamask-nil-types';
 import { Check, X } from 'lucide-react';
+import { formatEther } from 'viem';
 
 import { cutAddress } from '../lib/cutAddress';
 import { useStore } from '../state';
@@ -93,8 +94,12 @@ export const TxsTable = () => {
               >
                 {cutAddress(i.to)}
               </a>
-              <p className="text-center">{`${i.value} ETH`}</p>
-              <p className="text-right">{`${i.fee_credit} ETH`}</p>
+              <p className="text-center">{`${formatEther(
+                BigInt(i.value),
+              )} ETH`}</p>
+              <p className="text-right">{`${formatEther(
+                BigInt(i.fee_credit),
+              )} ETH`}</p>
             </div>
           ))}
         </div>
