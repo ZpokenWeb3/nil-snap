@@ -1,17 +1,27 @@
 import {
+  Component,
+  DialogType,
+  copyable,
+  heading,
+  panel,
+  text,
+} from '@metamask/snaps-sdk';
+import {
   SendMessageParams,
   hexToBigInt,
   waitTillCompleted,
 } from '@nilfoundation/niljs';
 import { Address, SendRequest, SendResponse } from '@zpoken/metamask-nil-types';
 
-import type { ApiParams } from '../types/snapApi';
+import type { ApiParamsWithKeyDeriver } from '../types/api';
 import { client } from './client';
 import { getPrivateKey } from './getPrivateKey';
 import { getWallet } from './getWallet';
 
-export const send = async (params: ApiParams): Promise<SendResponse> => {
-  const { keyDeriver, requestParams } = params;
+export const send = async (
+  params: ApiParamsWithKeyDeriver,
+): Promise<SendResponse> => {
+  const { keyDeriver, requestParams, wallet: snap } = params;
 
   const { recipient, amount, tokenId } = requestParams as SendRequest;
 
@@ -34,6 +44,34 @@ export const send = async (params: ApiParams): Promise<SendResponse> => {
     ];
   } else {
     tx.value = BigInt(amount);
+  }
+
+  const components: Component[] = [];
+  //add sender
+  components.push(text(`**${'Signer Address'}:**`));
+  components.push(copyable(wallet.getAddressHex()));
+
+  //add recipient
+  components.push(text(`**${'Recipient Address'}:**`));
+  components.push(copyable(recipient));
+
+  //add amount
+  components.push(text(`**${`Amount(${tokenId ?? 'ETH'})`}:**`));
+  components.push(copyable(amount));
+
+  const response = await snap.request({
+    method: 'snap_dialog',
+    params: {
+      type: DialogType.Confirmation,
+      content: panel([
+        heading('Do you want to sign this transaction ?'),
+        ...components,
+      ]),
+    },
+  });
+
+  if (!response) {
+    return false;
   }
 
   const hash = await wallet.sendMessage(tx);

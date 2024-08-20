@@ -5,5 +5,8 @@ import { ApiRequest } from '@zpoken/metamask-nil-types';
 export type ApiParams = {
   requestParams: ApiRequest;
   wallet: SnapsProvider;
-  keyDeriver?: SLIP10Node;
+};
+
+export type ApiParamsWithKeyDeriver = ApiParams & {
+  keyDeriver: SLIP10Node;
 };

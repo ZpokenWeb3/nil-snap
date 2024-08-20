@@ -1,6 +1,6 @@
 import { Currency, GetCurrenciesResponse } from '@zpoken/metamask-nil-types';
 
-import type { ApiParams } from '../types/snapApi';
+import type { ApiParams } from '../types/api';
 import { client } from './client';
 
 export const getCurrencies = async (params: ApiParams): Promise<Currency[]> => {

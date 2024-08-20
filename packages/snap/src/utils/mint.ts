@@ -7,12 +7,14 @@ import {
 import { Address, MintRequest } from '@zpoken/metamask-nil-types';
 import { encodeFunctionData } from 'viem';
 
-import type { ApiParams } from '../types/snapApi';
+import type { ApiParamsWithKeyDeriver } from '../types/api';
 import { client } from './client';
 import { getPrivateKey } from './getPrivateKey';
 import { getWallet } from './getWallet';
 
-export const mint = async (params: ApiParams): Promise<boolean> => {
+export const mint = async (
+  params: ApiParamsWithKeyDeriver,
+): Promise<boolean> => {
   const { keyDeriver, requestParams } = params;
 
   const { amount } = requestParams as MintRequest;

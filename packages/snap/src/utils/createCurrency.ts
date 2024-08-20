@@ -6,12 +6,14 @@ import {
 import { Address, CreateCurrencyRequest } from '@zpoken/metamask-nil-types';
 import { encodeFunctionData } from 'viem';
 
-import type { ApiParams } from '../types/snapApi';
+import type { ApiParamsWithKeyDeriver } from '../types/api';
 import { client } from './client';
 import { getPrivateKey } from './getPrivateKey';
 import { getWallet } from './getWallet';
 
-export const createCurrency = async (params: ApiParams): Promise<boolean> => {
+export const createCurrency = async (
+  params: ApiParamsWithKeyDeriver,
+): Promise<boolean> => {
   const { keyDeriver, requestParams } = params;
 
   const { name, amount } = requestParams as CreateCurrencyRequest;

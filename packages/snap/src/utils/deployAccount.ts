@@ -1,10 +1,12 @@
 import { Address } from '@zpoken/metamask-nil-types';
 
-import type { ApiParams } from '../types/snapApi';
+import type { ApiParams, ApiParamsWithKeyDeriver } from '../types/api';
 import { getPrivateKey } from './getPrivateKey';
 import { getWallet } from './getWallet';
 
-export const deployAccount = async (params: ApiParams): Promise<boolean> => {
+export const deployAccount = async (
+  params: ApiParamsWithKeyDeriver,
+): Promise<boolean> => {
   const { keyDeriver } = params;
 
   const privateKey = await getPrivateKey(keyDeriver);

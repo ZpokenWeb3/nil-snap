@@ -1,7 +1,7 @@
 import { Faucet } from '@nilfoundation/niljs';
 import { FaucetResponse } from '@zpoken/metamask-nil-types';
 
-import type { ApiParams } from '../types/snapApi';
+import type { ApiParams } from '../types/api';
 import { client } from './client';
 
 export const faucetToken = async (params: ApiParams): Promise<boolean> => {
