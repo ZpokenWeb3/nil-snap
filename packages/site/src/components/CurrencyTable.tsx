@@ -3,12 +3,13 @@ import { formatUnits } from 'viem';
 import { useStore } from '../state';
 import { walletSelector } from '../state/wallet';
 import { CurrencyCard } from './CurrencyCard';
+import { FaucetDialog } from './FaucetDialog';
+import { MintDialog } from './MintDialog';
 import { Button } from './ui/button';
 import { ScrollArea } from './ui/scroll-area';
 
 export const CurrencyTable = () => {
-  const { currencies, selectedAccount, faucet, mint } =
-    useStore(walletSelector);
+  const { currencies, selectedAccount } = useStore(walletSelector);
 
   const tokens = currencies[selectedAccount?.address!]!;
 
@@ -41,29 +42,9 @@ export const CurrencyTable = () => {
                   : i.value}
               </p>
               <div className="text-right">
-                {i.name === 'ETH' && (
-                  <Button
-                    variant="gradient"
-                    className="w-[100px]"
-                    size="sm"
-                    onClick={() => {
-                      void faucet();
-                    }}
-                  >
-                    Faucet
-                  </Button>
-                )}
+                {i.name === 'ETH' && <FaucetDialog currency={i} />}
                 {i.id && selectedAccount.address.includes(i.id.slice(2)) && (
-                  <Button
-                    variant="gradient"
-                    className="w-[100px]"
-                    size="sm"
-                    onClick={() => {
-                      void mint();
-                    }}
-                  >
-                    Mint
-                  </Button>
+                  <MintDialog currency={i} />
                 )}
               </div>
             </div>

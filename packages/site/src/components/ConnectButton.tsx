@@ -1,11 +1,14 @@
 import { useMetaMask } from '../hooks/useMetaMask';
 import { useRequestSnap } from '../hooks/useRequestSnap';
 import { shouldDisplayReconnectButton } from '../lib/button';
+import { useStore } from '../state';
+import { walletSelector } from '../state/wallet';
 import { Button } from './ui/button';
 
 export const ConnectButton = () => {
   const requestSnap = useRequestSnap();
   const { isFlask, installedSnap } = useMetaMask();
+  const { getAccount } = useStore(walletSelector);
 
   if (!isFlask && !installedSnap) {
     return (
@@ -20,10 +23,9 @@ export const ConnectButton = () => {
       <Button
         type="button"
         onClick={() => {
-          // eslint-disable-next-line no-void
           void (async () => {
-            // eslint-disable-next-line no-void
-            void requestSnap();
+            await requestSnap();
+            await getAccount();
           })();
         }}
         className="w-[146px]"
@@ -38,11 +40,7 @@ export const ConnectButton = () => {
       <Button
         type="button"
         onClick={() => {
-          // eslint-disable-next-line no-void
-          void (async () => {
-            // eslint-disable-next-line no-void
-            void requestSnap();
-          })();
+          void requestSnap();
         }}
         className="w-[146px]"
       >

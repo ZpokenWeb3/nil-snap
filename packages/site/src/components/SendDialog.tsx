@@ -5,6 +5,7 @@ import { cn } from '../lib/utils';
 import { useStore } from '../state';
 import { sendSelector } from '../state/send';
 import { walletSelector } from '../state/wallet';
+import { CurrencySelect } from './CurrencySelect';
 import { InputToken } from './InputToken';
 import { TextInput } from './TextInput';
 import { Button, buttonVariants } from './ui/button';
@@ -68,10 +69,14 @@ export const SendDialog = () => {
               placeholder="Amount"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              maxExponent={currency?.decimals ?? 100000000000000}
-              selectedCurrency={currency}
-              currencies={currencies[selectedAccount?.address!] ?? []}
-              setCurrency={setCurrency}
+              maxExponent={currency?.decimals ?? 0}
+              children={
+                <CurrencySelect
+                  selectedCurrency={currency}
+                  currencies={currencies[selectedAccount?.address!] ?? []}
+                  setCurrency={setCurrency}
+                />
+              }
             />
             <TextInput
               label="Receiver"

@@ -17,8 +17,9 @@ export type GetCurrenciesResponse = {
   account: Address;
 };
 
-export type FaucetResponse = {
+export type FaucetRequest = {
   account: Address;
+  amount: string;
 };
 
 export type SendRequest = {

@@ -1,30 +1,17 @@
-import { Currency } from '@zpoken/metamask-nil-types';
-import { KeyboardEventHandler } from 'react';
+import { KeyboardEventHandler, ReactNode } from 'react';
 
 import { useWheelPrevent } from '../hooks/useWheelPrevent';
-import { CurrencyCard } from './CurrencyCard';
 import { Input, InputProps } from './ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from './ui/select';
 
 export const InputToken = ({
   label,
   maxExponent,
-  selectedCurrency,
-  currencies,
-  setCurrency,
+  children,
   ...props
 }: {
   label: string;
   maxExponent?: number;
-  selectedCurrency: Currency | undefined;
-  currencies: Currency[];
-  setCurrency: (currency: Currency) => void;
+  children: ReactNode;
 } & InputProps) => {
   const inputRef = useWheelPrevent();
 
@@ -59,25 +46,7 @@ export const InputToken = ({
           type="number"
           onKeyDown={onKeyDown}
         />
-        {selectedCurrency && currencies.length && (
-          <Select
-            defaultValue={selectedCurrency.name ?? 'ETH'}
-            onValueChange={(v) =>
-              setCurrency(currencies.find((i) => i.name === v)!)
-            }
-          >
-            <SelectTrigger className="min-w-[144px] w-fit">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent className="min-w-[144px] w-fit">
-              {currencies.map((i) => (
-                <SelectItem value={i.name} className="text-foreground">
-                  <CurrencyCard currency={i} />
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        )}
+        {children}
       </div>
     </div>
   );

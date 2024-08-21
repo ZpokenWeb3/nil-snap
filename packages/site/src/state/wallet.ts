@@ -3,7 +3,7 @@ import type {
   Address,
   CreateCurrencyRequest,
   Currency,
-  FaucetResponse,
+  FaucetRequest,
   GetCurrenciesResponse,
   MintRequest,
   Transaction,
@@ -22,9 +22,9 @@ export type WalletSlice = {
   transactions: Transaction[];
   getTransactions: () => Promise<void>;
   deploy: () => Promise<void>;
-  faucet: () => Promise<void>;
+  faucet: (amount: string) => Promise<void>;
   createCurrency: () => Promise<void>;
-  mint: () => Promise<void>;
+  mint: (amount: string) => Promise<void>;
 };
 
 export const createWalletSlice =
@@ -113,13 +113,14 @@ export const createWalletSlice =
           await getCurrencies();
         }
       },
-      faucet: async () => {
+      faucet: async (amount) => {
         const { selectedAccount } = get().wallet;
 
         if (!selectedAccount) return;
 
-        const res = await request<boolean, FaucetResponse>('nil_faucet', {
+        const res = await request<boolean, FaucetRequest>('nil_faucet', {
           account: selectedAccount.address,
+          amount,
         });
 
         if (res) {
@@ -141,9 +142,9 @@ export const createWalletSlice =
           await getCurrencies();
         }
       },
-      mint: async () => {
+      mint: async (amount) => {
         const res = await request<boolean, MintRequest>('nil_mint', {
-          amount: '10000000000000',
+          amount,
         });
 
         if (res) {

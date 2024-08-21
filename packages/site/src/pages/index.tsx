@@ -1,4 +1,5 @@
 import { Plus } from 'lucide-react';
+import { useMemo } from 'react';
 
 import { CurrencyTable } from '../components/CurrencyTable';
 import { ScrollableTableWrapper } from '../components/ScrollableTableWrapper';
@@ -8,7 +9,19 @@ import { useStore } from '../state';
 import { walletSelector } from '../state/wallet';
 
 const Index = () => {
-  const { selectedAccount, createCurrency } = useStore(walletSelector);
+  const { selectedAccount, currencies, createCurrency } =
+    useStore(walletSelector);
+
+  const showCreateBtn = useMemo(() => {
+    if (!selectedAccount) return true;
+    const tokens = currencies[selectedAccount.address] ?? [];
+
+    return Boolean(
+      tokens.find(
+        (i) => i.id && selectedAccount.address.includes(i.id.slice(2)),
+      ),
+    );
+  }, [currencies, selectedAccount]);
 
   return (
     <div className="flex flex-col gap-[30px] h-full">
@@ -17,7 +30,7 @@ const Index = () => {
       <ScrollableTableWrapper>
         <div className="flex justify-between items-center mb-10">
           <p className="text-xl leading-[30px] font-semibold">Assets</p>
-          {selectedAccount && (
+          {!showCreateBtn && (
             <Button
               variant="secondary"
               className="w-[186px] flex items-center gap-3"

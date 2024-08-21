@@ -1,4 +1,9 @@
-import { type FunctionComponent, type ReactNode, useEffect } from 'react';
+import {
+  type FunctionComponent,
+  type ReactNode,
+  useEffect,
+  useState,
+} from 'react';
 
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
@@ -12,6 +17,7 @@ export type AppProps = {
 
 export const App: FunctionComponent<AppProps> = ({ children }) => {
   const { provider } = useMetaMaskContext();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { selectedAccount, getAccount, getCurrencies } =
     useStore(walletSelector);
@@ -25,7 +31,7 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
       try {
         await getAccount();
       } catch (error) {
-        //
+        setLoading(true);
       }
     })();
   }, [provider]);
@@ -39,10 +45,13 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
       try {
         await getCurrencies();
       } catch (error) {
-        //
+      } finally {
+        setLoading(true);
       }
     })();
   }, [selectedAccount]);
+
+  if (!loading) return <></>;
 
   return (
     <div className="flex flex-col gap-5 pt-5 px-6 h-screen m-0 pb-6">
