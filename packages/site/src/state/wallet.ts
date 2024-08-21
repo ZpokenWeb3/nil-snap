@@ -23,7 +23,7 @@ export type WalletSlice = {
   getTransactions: () => Promise<void>;
   deploy: () => Promise<void>;
   faucet: (amount: string) => Promise<void>;
-  createCurrency: () => Promise<void>;
+  createCurrency: (name: string, amount: string) => Promise<void>;
   mint: (amount: string) => Promise<void>;
 };
 
@@ -39,6 +39,7 @@ export const createWalletSlice =
           'nil_createAccount',
           undefined,
         );
+
         set((state) => {
           state.wallet.accounts = [account];
           state.wallet.selectedAccount = account;
@@ -82,36 +83,37 @@ export const createWalletSlice =
       deploy: async () => {
         const { selectedAccount } = get().wallet;
         if (!selectedAccount) return;
+        try {
+          const res = await request<boolean, undefined>(
+            'nil_deployAccount',
+            undefined,
+          );
 
-        const res = await request<boolean, undefined>(
-          'nil_deployAccount',
-          undefined,
-        );
+          if (res) {
+            const accounts = get().wallet.accounts.map((i) => {
+              if (selectedAccount.address === i.address) {
+                return {
+                  ...i,
+                  isDeployed: true,
+                };
+              }
 
-        if (res) {
-          const accounts = get().wallet.accounts.map((i) => {
-            if (selectedAccount.address === i.address) {
               return {
                 ...i,
-                isDeployed: true,
               };
-            }
+            });
 
-            return {
-              ...i,
-            };
-          });
+            set((state) => {
+              state.wallet.accounts = accounts;
+              state.wallet.selectedAccount = accounts.find(
+                (i) => i.address === selectedAccount.address,
+              );
+            });
 
-          set((state) => {
-            state.wallet.accounts = accounts;
-            state.wallet.selectedAccount = accounts.find(
-              (i) => i.address === selectedAccount.address,
-            );
-          });
-
-          const { getCurrencies } = get().wallet;
-          await getCurrencies();
-        }
+            const { getCurrencies } = get().wallet;
+            await getCurrencies();
+          }
+        } catch (error) {}
       },
       faucet: async (amount) => {
         const { selectedAccount } = get().wallet;
@@ -128,12 +130,12 @@ export const createWalletSlice =
           await getCurrencies();
         }
       },
-      createCurrency: async () => {
+      createCurrency: async (name, amount) => {
         const res = await request<boolean, CreateCurrencyRequest>(
           'nil_createCurrency',
           {
-            name: 'Test',
-            amount: '10000000000000',
+            name,
+            amount,
           },
         );
 

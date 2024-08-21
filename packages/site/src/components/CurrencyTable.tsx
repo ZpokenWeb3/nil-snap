@@ -31,9 +31,9 @@ export const CurrencyTable = () => {
               className="h-[66px] grid grid-cols-5 text-sm font-semibold items-center px-3 rounded-lg border-[1.3px] border-table-cell [&:nth-child(odd)]:bg-table-cell"
               key={i.name}
             >
-              <p className="text-left">
+              <div>
                 <CurrencyCard currency={i} />
-              </p>
+              </div>
               <p className="text-center">-</p>
               <p className="text-center">$0.00</p>
               <p className="text-center">

@@ -57,14 +57,10 @@ export const createSendSlice = (): SliceCreator<SendSlice> => (set, get) => {
             : amount,
         };
 
-        console.log(currency);
-
         if (currency?.id) {
           req.tokenId = currency.id;
         }
         const res = await request<SendResponse, SendRequest>('nil_send', req);
-
-        console.log(res);
 
         if (res) {
           await getCurrencies();

@@ -11,7 +11,7 @@ export const InputToken = ({
 }: {
   label: string;
   maxExponent?: number;
-  children: ReactNode;
+  children?: ReactNode;
 } & InputProps) => {
   const inputRef = useWheelPrevent();
 

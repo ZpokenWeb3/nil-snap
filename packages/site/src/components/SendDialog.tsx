@@ -41,6 +41,7 @@ export const SendDialog = () => {
   return (
     <Dialog>
       <DialogTrigger
+        disabled={!selectedAccount?.isDeployed}
         className={cn(
           buttonVariants({
             variant: 'gradient',
@@ -87,7 +88,7 @@ export const SendDialog = () => {
           </div>
           <DialogFooter>
             <Button
-              className="flex items-center gap-[10px] w-[90px]"
+              className="flex items-center gap-[10px] w-[100px]"
               type="submit"
               disabled={!Number(amount) || !recipient}
             >

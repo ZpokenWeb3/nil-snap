@@ -19,7 +19,7 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
   const { provider } = useMetaMaskContext();
   const [loading, setLoading] = useState<boolean>(false);
 
-  const { selectedAccount, getAccount, getCurrencies } =
+  const { selectedAccount, currencies, getAccount, getCurrencies } =
     useStore(walletSelector);
 
   useEffect(() => {
