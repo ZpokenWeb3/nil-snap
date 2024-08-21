@@ -1,53 +1,232 @@
-# @metamask/template-snap-monorepo
+# Nil snap documentation
 
-This repository demonstrates how to develop a snap with TypeScript. For detailed
-instructions, see [the MetaMask documentation](https://docs.metamask.io/guide/snaps.html#serving-a-snap-to-your-local-environment).
+This repository demonstrates how to create an account using a wallet provider that supports the `wallet_invokeSnap` method. This code interacts with a MetaMask Snap to create an account and retrieve account details.
 
-MetaMask Snaps is a system that allows anyone to safely expand the capabilities
-of MetaMask. A _snap_ is a program that we run in an isolated environment that
-can customize the wallet experience.
+## Prerequisites
 
-## Snaps is pre-release software
+- [MetaMask Flask](https://metamask.io/flask/)
+- Node.js installed
+- Familiarity with TypeScript
 
-To interact with (your) Snaps, you will need to install [MetaMask Flask](https://metamask.io/flask/),
-a canary distribution for developers that provides access to upcoming features.
+## Installation
 
-## Getting Started
+1.  Clone the repository:
 
-Clone the template-snap repository [using this template](https://github.com/MetaMask/template-snap-monorepo/generate)
-and set up the development environment:
+```bash
+git clone <repository-url>
+```
+
+2.  Install dependencies and start:
 
 ```shell
 yarn install && yarn start
 ```
 
-## Cloning
+## Methods
 
-This repository contains GitHub Actions that you may find useful, see
-`.github/workflows` and [Releasing & Publishing](https://github.com/MetaMask/template-snap-monorepo/edit/main/README.md#releasing--publishing)
-below for more information.
+### Create Account
 
-If you clone or create this repository outside the MetaMask GitHub organization,
-you probably want to run `./scripts/cleanup.sh` to remove some files that will
-not work properly outside the MetaMask GitHub organization.
+To create an account, you can use the following code snippet:
 
-If you don't wish to use any of the existing GitHub actions in this repository,
-simply delete the `.github/workflows` directory.
+```ts
+await provider.request({
+  method: 'wallet_invokeSnap',
+  params: {
+    snapId: 'local:http://localhost:8080',
+    request: { method: 'nil_createAccount' },
+  },
+});
+```
 
-## Contributing
+#### Response
 
-### Testing and Linting
+- address: The generated account address.
+- isDeployed: A boolean indicating whether the account is deployed.
+- shardId: The shard ID of the account.
 
-Run `yarn test` to run the tests once.
+### Request Funds from Faucet
 
-Run `yarn lint` to run the linter, or run `yarn lint:fix` to run the linter and
-fix any automatically fixable issues.
+Once you have created an account, you can request funds from a faucet using the following code:
 
-### Using NPM packages with scripts
+```ts
+await provider.request({
+  method: 'wallet_invokeSnap',
+  params: {
+    snapId: 'local:http://localhost:8080',
+    request: {
+      method: 'nil_faucet',
+      params: {
+        account,
+        amount,
+      },
+    },
+  },
+});
+```
 
-Scripts are disabled by default for security reasons. If you need to use NPM
-packages with scripts, you can run `yarn allow-scripts auto`, and enable the
-script in the `lavamoat.allowScripts` section of `package.json`.
+#### Parameters
 
-See the documentation for [@lavamoat/allow-scripts](https://github.com/LavaMoat/LavaMoat/tree/main/packages/allow-scripts)
-for more information.
+- account: The address of the account.
+- amount: The amount of funds to request from the faucet.
+
+### Deploy the Account
+
+After creating the account, you can deploy it using the following code:
+
+```ts
+await provider.request({
+  method: 'wallet_invokeSnap',
+  params: {
+    snapId: 'local:http://localhost:8080',
+    request: { method: 'nil_deployAccount' },
+  },
+});
+```
+
+Deploying the account is essential to making it active on the network.
+
+### Create a Custom Currency
+
+Once your account is deployed, you can create a custom currency using the following code:
+
+```ts
+await provider.request({
+  method: 'wallet_invokeSnap',
+  params: {
+    snapId: 'local:http://localhost:8080',
+    request: {
+      method: 'nil_createCurrency',
+      params: {
+        name,
+        amount,
+      },
+    },
+  },
+});
+```
+
+#### Parameters
+
+- name: The name of the currency to be created.
+- amount: The initial amount of the currency to be issued.
+
+### Mint Own Currency
+
+Once your currency is created, you can mint it using the following code:
+
+```ts
+await provider.request({
+  method: 'wallet_invokeSnap',
+  params: {
+    snapId: 'local:http://localhost:8080',
+    request: {
+      method: 'nil_mint',
+      params: {
+        amount,
+      },
+    },
+  },
+});
+```
+
+#### Parameters
+
+- amount: The amount of the currency to be minted.
+
+### Get Currencies of Address
+
+To retrieving currencies associated with an account using the following code:
+
+```ts
+await provider.request({
+  method: 'wallet_invokeSnap',
+  params: {
+    snapId: 'local:http://localhost:8080',
+    request: {
+      method: 'nil_getCurrencies',
+      params: {
+        account,
+      },
+    },
+  },
+});
+```
+
+#### Parameters
+
+- account: The address of the account for which to retrieve the list of currencies.
+
+#### Response (array)
+
+- decimals: The number of decimal places for the currency.
+- value: The balance of the currency as a string.
+- name: The name of the currency.
+- id: The id of the currency.
+
+### Get Transactions of Address
+
+To retrieving transactions associated with an account using the following code:
+
+```ts
+await provider.request({
+  method: 'wallet_invokeSnap',
+  params: {
+    snapId: 'local:http://localhost:8080',
+    request: {
+      method: 'nil_getTransactions',
+      params: {
+        account,
+      },
+    },
+  },
+});
+```
+
+#### Parameters
+
+- account: The address of the account for which to retrieve the list of currencies.
+
+#### Response (array)
+
+- block_hash: The hash of the block containing the transaction.
+- block_id: The ID of the block containing the transaction.
+- fee_credit: The fee credited for the transaction.
+- flags: Transaction-specific flags.
+- from: The address from which the transaction originated.
+- gas_used: The amount of gas used in the transaction.
+- hash: The hash of the transaction.
+- method: The method name associated with the transaction.
+- outgoing: A boolean indicating if the transaction is outgoing.
+- seqno: The sequence number of the transaction.
+- shard_id: The shard ID where the transaction occurred.
+- success: A boolean indicating whether the transaction was successful.
+- timestamp: The timestamp when the transaction was processed.
+- to: The recipient address of the transaction.
+- value: The value of the transaction.
+
+### Send Currency
+
+You can send currency using the following code:
+
+```ts
+await provider.request({
+  method: 'wallet_invokeSnap',
+  params: {
+    snapId: 'local:http://localhost:8080',
+    request: {
+      method: 'nil_send',
+      params: {
+        recipient,
+        amount,
+        tokenId,
+      },
+    },
+  },
+});
+```
+
+#### Parameters
+
+- recipient: The address of the recipient to whom the transaction will be sent.
+- amount: The amount to be sent, typically as a string representing the value in the smallest unit (e.g., wei for ETH).
+- tokenId: The ID of the token being sent, such as custom token (optional, only for custom currency).
