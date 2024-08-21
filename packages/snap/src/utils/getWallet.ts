@@ -20,6 +20,3 @@ export const getWallet = async (privateKey: Address) => {
 
   return wallet;
 };
-
-//0.00001
-//10000000000000

@@ -38,9 +38,9 @@ export const InputToken = ({
   return (
     <div className="flex flex-col gap-2">
       <p className="text-base font-medium">{label}</p>
-      <div className="rounded-lg bg-input/80 flex items-center pr-[18px]">
+      <div className="rounded-lg bg-input flex items-center pr-[18px] border-[1.3px] border-border-secondary">
         <Input
-          className="rounded-none rounded-l-lg bg-input/0"
+          className="rounded-none rounded-l-lg bg-input/0 border-0"
           ref={inputRef}
           {...props}
           type="number"

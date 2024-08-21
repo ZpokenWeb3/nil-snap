@@ -1,4 +1,3 @@
-import { DialogTitle } from '@radix-ui/react-dialog';
 import { Currency } from '@zpoken/metamask-nil-types';
 import { ArrowDownToLine } from 'lucide-react';
 import { useState } from 'react';
@@ -15,6 +14,7 @@ import {
   DialogContent,
   DialogFooter,
   DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from './ui/dialog';
 

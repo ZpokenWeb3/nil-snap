@@ -10,7 +10,7 @@ const Index = () => {
       <WalletInfo />
       <ScrollableTableWrapper>
         <div className="flex justify-between items-center mb-10">
-          <p className="text-xl leading-[30px] font-semibold">Assets</p>
+          <p className="text-xl leading-[30px] font-semibold">Currencies</p>
           <AddCurrencyDialog />
         </div>
         <CurrencyTable />

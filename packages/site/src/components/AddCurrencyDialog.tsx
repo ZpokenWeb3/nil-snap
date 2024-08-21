@@ -1,4 +1,3 @@
-import { Dialog, DialogTrigger } from '@radix-ui/react-dialog';
 import { CirclePlus, Plus } from 'lucide-react';
 import React, { useMemo, useState } from 'react';
 
@@ -9,10 +8,12 @@ import { InputToken } from './InputToken';
 import { TextInput } from './TextInput';
 import { Button, buttonVariants } from './ui/button';
 import {
+  Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from './ui/dialog';
 
 export const AddCurrencyDialog = () => {
