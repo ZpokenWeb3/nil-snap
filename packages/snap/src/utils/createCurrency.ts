@@ -26,8 +26,8 @@ export const createCurrency = async (
 
   const currencyCreationMessage = await wallet.sendMessage({
     to: MINTER_ADDRESS,
-    feeCredit: 1_000_000n,
-    value: 100_000_000n,
+    feeCredit: 10_000_000n,
+    value: 10_00_000_000n,
     data: encodeFunctionData({
       abi: MINTER_ABI,
       functionName: 'create',
