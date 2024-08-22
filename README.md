@@ -10,13 +10,7 @@ This repository demonstrates how to create an account using a wallet provider th
 
 ## Installation
 
-1.  Clone the repository:
-
-```bash
-git clone <repository-url>
-```
-
-2.  Install dependencies and start:
+### Install dependencies and start:
 
 ```shell
 yarn install && yarn start
