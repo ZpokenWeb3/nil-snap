@@ -31,6 +31,5 @@
     },
     "snap_manageState": {}
   },
-  "manifestVersion": "0.1",
-  "host_permissions": ["https://api.devnet.nil.foundation/*"]
+  "manifestVersion": "0.1"
 }
