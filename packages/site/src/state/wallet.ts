@@ -36,21 +36,17 @@ export const createWalletSlice =
       transactions: [],
       getAccount: async () => {
         try {
-          console.log('there');
-
           const account = await request<Account, undefined>(
             'nil_createAccount',
             undefined,
           );
-
-          console.log({ account });
 
           set((state) => {
             state.wallet.accounts = [account];
             state.wallet.selectedAccount = account;
           });
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       },
       getCurrencies: async () => {

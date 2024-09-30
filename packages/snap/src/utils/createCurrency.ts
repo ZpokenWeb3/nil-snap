@@ -20,8 +20,8 @@ export const createCurrency = async (
   const setCurrencyNameHash = await wallet.setCurrencyName(name);
   await waitTillCompleted(client, wallet.shardId, setCurrencyNameHash);
 
-  // const mintCurrencyhash = await wallet.mintCurrency(BigInt(amount));
-  // await waitTillCompleted(client, wallet.shardId, mintCurrencyhash);
+  const mintCurrencyhash = await wallet.mintCurrency(BigInt(amount));
+  await waitTillCompleted(client, wallet.shardId, mintCurrencyhash);
 
   return true;
 };

@@ -8,8 +8,6 @@ export const request = async <T, P>(method: NilMethods, params: P) => {
 
   if (!provider) throw new Error('Provider is not found!');
 
-  console.log(provider);
-
   return (await provider.request({
     method: 'wallet_invokeSnap',
     params: {
