@@ -23,6 +23,8 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
     useStore(walletSelector);
 
   useEffect(() => {
+    console.log({ provider });
+
     if (!provider) {
       return;
     }
@@ -51,7 +53,7 @@ export const App: FunctionComponent<AppProps> = ({ children }) => {
     })();
   }, [selectedAccount]);
 
-  if (!loading) return <></>;
+  // if (!loading) return <></>;
 
   return (
     <div className="flex flex-col gap-5 pt-5 px-6 h-screen m-0 pb-6">

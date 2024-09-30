@@ -1,6 +1,6 @@
 import { Address } from '@zpoken/metamask-nil-types';
 
-import type { ApiParams, ApiParamsWithKeyDeriver } from '../types/api';
+import type { ApiParamsWithKeyDeriver } from '../types/api';
 import { getPrivateKey } from './getPrivateKey';
 import { getWallet } from './getWallet';
 
